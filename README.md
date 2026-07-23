@@ -1,6 +1,13 @@
 # Dynamic Pictures Media Ltd
 
-Official website for **Dynamic Pictures Media Ltd** — built with Next.js 15, React, and Tailwind CSS.
+Client website for **Dynamic Pictures Media Ltd**.
+
+## Tech stack
+
+- **React 19**
+- **Vite 6**
+- **Tailwind CSS v4**
+- **React Router 7**
 
 ## Quick start
 
@@ -11,21 +18,36 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-## Project structure
+## Scripts
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Local development server |
+| `npm run build` | Production build → `dist/` |
+| `npm run preview` | Preview production build |
+
+## Folder structure
 
 ```
-├── src/
-│   ├── app/              # Routes (home, /team, /events/[slug])
-│   ├── components/       # Layout + sections
-│   └── lib/              # Content data + WhatsApp helper
-├── public/images/        # Brand, hero, services, gallery, team, events…
-├── legacy/               # Archived original HTML site (not deployed)
+├── index.html
 ├── package.json
-└── vercel.json
+├── vite.config.ts
+├── vercel.json
+├── public/
+│   └── images/          # brand, hero, services, gallery, team, events…
+├── src/
+│   ├── main.tsx         # App entry
+│   ├── App.tsx          # Routes + shell layout
+│   ├── styles/          # Tailwind v4 theme
+│   ├── pages/           # Home, Team, Event detail
+│   ├── components/
+│   │   ├── layout/      # Navbar, Footer
+│   │   ├── sections/    # Page sections
+│   │   └── ui/          # Shared Image / Link helpers
+│   └── lib/             # Content data + WhatsApp helper
+└── legacy/              # Archived original HTML (not deployed)
 ```
 
-## Deploy on Vercel
+## Deploy (Vercel)
 
-Connected to GitHub — push to `main` to deploy. Framework: **Next.js** (auto-detected at repo root).
-
-Live: https://dynamic-pictures-media-ltd.vercel.app/
+Push to `main`. Framework is a static Vite SPA; `vercel.json` rewrites routes to `index.html`.

@@ -1,16 +1,14 @@
-import Image from "next/image";
-import Link from "next/link";
-import type { Metadata } from "next";
+import { useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
+import { Image } from "@/components/ui/Image";
+import { Link } from "@/components/ui/Link";
 import { TEAM_GROUP_PHOTOS, TEAM_MEMBERS } from "@/lib/data";
 
-export const metadata: Metadata = {
-  title: "Our Team",
-  description:
-    "Meet the Dynamic Pictures Media Ltd team — leadership, creatives, and the people behind every frame.",
-};
+export function TeamPage() {
+  useEffect(() => {
+    document.title = "Our Team | Dynamic Pictures Media Ltd";
+  }, []);
 
-export default function TeamPage() {
   return (
     <div className="bg-sand pt-28 pb-20">
       <div className="container-site">
@@ -127,7 +125,9 @@ export default function TeamPage() {
               <div
                 key={src}
                 className={`relative overflow-hidden ${
-                  i === 0 ? "col-span-2 aspect-[2/1] md:col-span-2" : "aspect-square"
+                  i === 0
+                    ? "col-span-2 aspect-[2/1] md:col-span-2"
+                    : "aspect-square"
                 }`}
               >
                 <Image

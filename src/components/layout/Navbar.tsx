@@ -1,8 +1,7 @@
-"use client";
-
-import Image from "next/image";
-import Link from "next/link";
+import { Image } from "@/components/ui/Image";
+import { Link } from "@/components/ui/Link";
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS } from "@/lib/data";
 import { cn } from "@/lib/utils";
@@ -18,6 +17,8 @@ function scrollToHash(href: string) {
 }
 
 export function Navbar() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("#home");
@@ -58,11 +59,10 @@ export function Navbar() {
   ) => {
     if (href.startsWith("#")) {
       e.preventDefault();
-      const onHome = window.location.pathname === "/";
-      if (onHome) {
+      if (location.pathname === "/") {
         scrollToHash(href);
       } else {
-        window.location.href = `/${href}`;
+        navigate({ pathname: "/", hash: href.slice(1) });
       }
       setOpen(false);
     }

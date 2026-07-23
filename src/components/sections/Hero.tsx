@@ -1,6 +1,4 @@
-"use client";
-
-import Image from "next/image";
+import { Image } from "@/components/ui/Image";
 import { useEffect, useState } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { HERO_IMAGES } from "@/lib/data";

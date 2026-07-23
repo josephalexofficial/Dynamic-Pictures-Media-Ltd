@@ -1,6 +1,4 @@
-"use client";
-
-import Image from "next/image";
+import { Image } from "@/components/ui/Image";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
 import { TESTIMONIALS } from "@/lib/data";

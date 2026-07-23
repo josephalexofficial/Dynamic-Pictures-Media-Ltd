@@ -1,5 +1,3 @@
-"use client";
-
 import { FormEvent, useState } from "react";
 import { Clock, Mail, MapPin, Phone, Send } from "lucide-react";
 import {

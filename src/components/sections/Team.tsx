@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+import { Image } from "@/components/ui/Image";
+import { Link } from "@/components/ui/Link";
 import { ArrowRight } from "lucide-react";
 import { TEAM_GROUP_PHOTOS, TEAM_MEMBERS, type TeamMember } from "@/lib/data";
 

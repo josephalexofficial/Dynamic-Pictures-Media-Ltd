@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+import { Image } from "@/components/ui/Image";
+import { Link } from "@/components/ui/Link";
 import { ArrowUpRight, Calendar, MapPin } from "lucide-react";
 import { EVENTS } from "@/lib/data";
 

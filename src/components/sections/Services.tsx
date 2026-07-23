@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Image } from "@/components/ui/Image";
 import { SERVICES } from "@/lib/data";
 
 export function Services() {

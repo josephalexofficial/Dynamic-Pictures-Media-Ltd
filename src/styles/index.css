@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0b0d10;
+  --color-ink-soft: #151922;
+  --color-ink-muted: #2a303c;
+  --color-sand: #f7f6f3;
+  --color-sand-dark: #ebe8e1;
+  --color-gold: #e8b923;
+  --color-gold-light: #f5d76e;
+  --color-gold-dark: #c4920f;
+
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+
+  --shadow-soft: 0 12px 40px rgba(11, 13, 16, 0.08);
+  --shadow-lift: 0 20px 50px rgba(11, 13, 16, 0.14);
+
+  --animate-fade-up: fade-up 0.7s ease-out forwards;
+  --animate-fade-in: fade-in 0.5s ease-out forwards;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+body {
+  margin: 0;
+  color: var(--color-ink);
+  background: var(--color-sand);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: rgba(232, 185, 35, 0.35);
+  color: #0b0d10;
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility section-pad {
+  padding-block: 4rem;
+}
+
+@utility container-site {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 80rem;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .container-site {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-site {
+    padding-inline: 2rem;
+  }
+
+  .section-pad {
+    padding-block: 6rem;
+  }
+}

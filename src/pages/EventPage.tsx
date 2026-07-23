@@ -1,30 +1,23 @@
-import Image from "next/image";
-import Link from "next/link";
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { useEffect } from "react";
+import { Navigate, useParams } from "react-router-dom";
 import { ArrowLeft, Calendar, MapPin } from "lucide-react";
-import { EVENTS, getEventBySlug } from "@/lib/data";
+import { Image } from "@/components/ui/Image";
+import { Link } from "@/components/ui/Link";
+import { getEventBySlug } from "@/lib/data";
 
-type Props = { params: Promise<{ slug: string }> };
-
-export function generateStaticParams() {
-  return EVENTS.map((event) => ({ slug: event.slug }));
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+export function EventPage() {
+  const { slug = "" } = useParams();
   const event = getEventBySlug(slug);
-  if (!event) return { title: "Event" };
-  return {
-    title: event.title,
-    description: event.excerpt,
-  };
-}
 
-export default async function EventPage({ params }: Props) {
-  const { slug } = await params;
-  const event = getEventBySlug(slug);
-  if (!event) notFound();
+  useEffect(() => {
+    if (event) {
+      document.title = `${event.title} | Dynamic Pictures Media Ltd`;
+    }
+  }, [event]);
+
+  if (!event) {
+    return <Navigate to="/#events" replace />;
+  }
 
   return (
     <div className="bg-sand pt-28 pb-20">

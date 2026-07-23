@@ -8,7 +8,7 @@ import { Testimonials } from "@/components/sections/Testimonials";
 import { Contact } from "@/components/sections/Contact";
 import { HashScroll } from "@/components/HashScroll";
 
-export default function HomePage() {
+export function HomePage() {
   return (
     <>
       <HashScroll />
