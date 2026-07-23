@@ -56,32 +56,35 @@ export function Team() {
               </p>
             </div>
 
-            <div className="grid min-h-0 flex-1 grid-cols-2 grid-rows-3 gap-2 md:gap-3">
+            <div className="grid grid-cols-2 gap-2 sm:min-h-0 sm:flex-1 sm:grid-rows-3 md:gap-3">
               <BtsPhoto
                 index={0}
                 onOpen={setActive}
-                className="col-span-2 row-span-1 sm:col-span-1 sm:row-span-2"
+                className="col-span-2 aspect-[16/10] sm:col-span-1 sm:row-span-2 sm:aspect-auto"
                 sizes="(max-width: 1024px) 100vw, 25vw"
               />
               <BtsPhoto
                 index={1}
                 onOpen={setActive}
+                className="aspect-square sm:aspect-auto"
                 sizes="(max-width: 1024px) 50vw, 25vw"
               />
               <BtsPhoto
                 index={2}
                 onOpen={setActive}
+                className="aspect-square sm:aspect-auto"
                 sizes="(max-width: 1024px) 50vw, 25vw"
               />
               <BtsPhoto
                 index={3}
                 onOpen={setActive}
+                className="aspect-square sm:aspect-auto"
                 sizes="(max-width: 1024px) 50vw, 25vw"
               />
               <BtsPhoto
                 index={4}
                 onOpen={setActive}
-                className="col-span-2 sm:col-span-1"
+                className="aspect-square sm:col-span-1 sm:aspect-auto"
                 sizes="(max-width: 1024px) 100vw, 25vw"
               />
             </div>
