@@ -1,0 +1,20 @@
+# Dependencies / build
+node_modules/
+dpm-next/node_modules/
+dpm-next/.next/
+dpm-next/out/
+
+# Env
+.env
+.env*.local
+
+# Large media kept locally (exceeds practical GitHub repo size)
+legacy/videos/
+*.mp4
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
