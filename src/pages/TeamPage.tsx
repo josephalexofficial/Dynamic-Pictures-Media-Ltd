@@ -1,10 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Expand } from "lucide-react";
 import { Image } from "@/components/ui/Image";
 import { PageBackLink, PageShell } from "@/components/ui/PageShell";
 import { SocialLinks } from "@/components/ui/SocialLinks";
+import { GalleryLightbox } from "@/components/ui/GalleryLightbox";
 import { TEAM_GROUP_PHOTOS, TEAM_MEMBERS } from "@/lib/data";
 
+const BTS_IMAGES = TEAM_GROUP_PHOTOS.map((src, i) => ({
+  src,
+  alt: `Dynamic Pictures crew on set ${i + 1}`,
+}));
+
 export function TeamPage() {
+  const [active, setActive] = useState<string | null>(null);
+
   useEffect(() => {
     document.title = "Our Team | Dynamic Pictures Media Ltd";
   }, []);
@@ -68,26 +77,41 @@ export function TeamPage() {
           <div className="mx-auto mt-3 h-1 w-12 rounded-full bg-gradient-to-r from-gold to-gold-dark" />
         </div>
         <div className="grid grid-cols-2 gap-2.5 sm:gap-3 md:grid-cols-3 md:gap-4">
-          {TEAM_GROUP_PHOTOS.map((src, i) => (
-            <div
-              key={src}
-              className={`relative overflow-hidden ${
+          {BTS_IMAGES.map((image, i) => (
+            <button
+              type="button"
+              key={image.src}
+              onClick={() => setActive(image.src)}
+              aria-label={`View photo: ${image.alt}`}
+              className={`group relative overflow-hidden bg-sand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
                 i === 0
                   ? "col-span-2 aspect-[2/1] md:col-span-2"
                   : "aspect-square"
               }`}
             >
               <Image
-                src={src}
-                alt={`Team photo ${i + 1}`}
+                src={image.src}
+                alt={image.alt}
                 fill
-                className="object-cover"
+                className="object-cover transition duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 50vw, 33vw"
               />
-            </div>
+              <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-ink/0 opacity-0 transition duration-300 group-hover:bg-ink/35 group-hover:opacity-100">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-ink shadow-soft">
+                  <Expand className="h-4 w-4" />
+                </span>
+              </span>
+            </button>
           ))}
         </div>
       </div>
+
+      <GalleryLightbox
+        images={BTS_IMAGES}
+        activeSrc={active}
+        onClose={() => setActive(null)}
+        onSelect={setActive}
+      />
     </PageShell>
   );
 }

@@ -6,6 +6,7 @@ import { TeamPage } from "@/pages/TeamPage";
 import { EventPage } from "@/pages/EventPage";
 import { GalleryPage } from "@/pages/GalleryPage";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { BackToTop } from "@/components/ui/BackToTop";
 
 export function App() {
   return (
@@ -21,6 +22,7 @@ export function App() {
         </Routes>
       </main>
       <Footer />
+      <BackToTop />
     </div>
   );
 }

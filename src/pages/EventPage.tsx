@@ -1,14 +1,25 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import { Calendar, MapPin } from "lucide-react";
+import { Calendar, Expand, MapPin } from "lucide-react";
 import { Image } from "@/components/ui/Image";
 import { Link } from "@/components/ui/Link";
 import { PageBackLink, PageShell } from "@/components/ui/PageShell";
+import { GalleryLightbox } from "@/components/ui/GalleryLightbox";
 import { getEventBySlug } from "@/lib/data";
 
 export function EventPage() {
   const { slug = "" } = useParams();
   const event = getEventBySlug(slug);
+  const [active, setActive] = useState<string | null>(null);
+
+  const galleryImages = useMemo(
+    () =>
+      (event?.gallery ?? []).map((src, i) => ({
+        src,
+        alt: `${event?.shortTitle ?? "Event"} photo ${i + 1}`,
+      })),
+    [event],
+  );
 
   useEffect(() => {
     if (event) {
@@ -86,20 +97,30 @@ export function EventPage() {
           <div className="mt-3 h-1 w-12 rounded-full bg-gradient-to-r from-gold to-gold-dark" />
         </div>
         <div className="columns-1 gap-3 sm:columns-2 sm:gap-4 lg:columns-3">
-          {event.gallery.map((src, i) => (
-            <div
-              key={src}
-              className="mb-3 break-inside-avoid overflow-hidden bg-white shadow-soft sm:mb-4"
+          {galleryImages.map((image, i) => (
+            <button
+              type="button"
+              key={image.src}
+              onClick={() => setActive(image.src)}
+              aria-label={`View ${image.alt}`}
+              className="group mb-3 block w-full break-inside-avoid overflow-hidden bg-white shadow-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold sm:mb-4"
             >
-              <Image
-                src={src}
-                alt={`${event.shortTitle} photo ${i + 1}`}
-                width={900}
-                height={700}
-                className="h-auto w-full object-cover"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              />
-            </div>
+              <div className="relative">
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  width={900}
+                  height={700}
+                  className="h-auto w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-ink/0 opacity-0 transition duration-300 group-hover:bg-ink/30 group-hover:opacity-100">
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-ink shadow-soft">
+                    <Expand className="h-4 w-4" />
+                  </span>
+                </span>
+              </div>
+            </button>
           ))}
         </div>
       </section>
@@ -112,6 +133,13 @@ export function EventPage() {
           Book similar coverage
         </Link>
       </div>
+
+      <GalleryLightbox
+        images={galleryImages}
+        activeSrc={active}
+        onClose={() => setActive(null)}
+        onSelect={setActive}
+      />
     </PageShell>
   );
 }

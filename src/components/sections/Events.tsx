@@ -1,9 +1,16 @@
-import { ArrowUpRight, Calendar, MapPin } from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight, Calendar, Expand, MapPin } from "lucide-react";
 import { Image } from "@/components/ui/Image";
 import { Link } from "@/components/ui/Link";
-import { EVENTS } from "@/lib/data";
+import { GalleryLightbox } from "@/components/ui/GalleryLightbox";
+import { EVENTS, type GalleryImage } from "@/lib/data";
 
 export function Events() {
+  const [lightbox, setLightbox] = useState<{
+    images: GalleryImage[];
+    activeSrc: string;
+  } | null>(null);
+
   return (
     <section id="events" className="section-pad relative overflow-hidden bg-sand">
       <div className="pointer-events-none absolute -right-24 top-16 h-72 w-72 rounded-full bg-gold/10 blur-3xl" />
@@ -72,20 +79,31 @@ export function Events() {
                 </p>
 
                 <div className="mt-5 grid grid-cols-4 gap-1.5 sm:gap-2">
-                  {event.preview.map((src) => (
-                    <div
-                      key={src}
-                      className="relative aspect-square overflow-hidden bg-sand"
-                    >
-                      <Image
-                        src={src}
-                        alt=""
-                        fill
-                        className="object-cover transition duration-500 group-hover:scale-105"
-                        sizes="100px"
-                      />
-                    </div>
-                  ))}
+                  {event.preview.map((src, i) => {
+                    const images: GalleryImage[] = event.gallery.map(
+                      (g, gi) => ({ src: g, alt: `${event.title} — photo ${gi + 1}` }),
+                    );
+                    return (
+                      <button
+                        type="button"
+                        key={src}
+                        onClick={() => setLightbox({ images, activeSrc: src })}
+                        aria-label={`View ${event.title} photo ${i + 1}`}
+                        className="group/thumb relative aspect-square overflow-hidden bg-sand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                      >
+                        <Image
+                          src={src}
+                          alt=""
+                          fill
+                          className="object-cover transition duration-500 group-hover:scale-105"
+                          sizes="100px"
+                        />
+                        <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-ink/0 opacity-0 transition duration-300 group-hover/thumb:bg-ink/40 group-hover/thumb:opacity-100">
+                          <Expand className="h-4 w-4 text-white" />
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
 
                 <Link
@@ -100,6 +118,15 @@ export function Events() {
           ))}
         </div>
       </div>
+
+      <GalleryLightbox
+        images={lightbox?.images ?? []}
+        activeSrc={lightbox?.activeSrc ?? null}
+        onClose={() => setLightbox(null)}
+        onSelect={(src) =>
+          setLightbox((prev) => (prev ? { ...prev, activeSrc: src } : prev))
+        }
+      />
     </section>
   );
 }

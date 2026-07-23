@@ -53,7 +53,7 @@ export function Gallery() {
           ))}
         </div>
 
-        <div className="mt-10 flex flex-col items-center gap-3 md:mt-12">
+        <div className="mt-10 flex justify-center md:mt-12">
           <Link
             href="/gallery"
             className="inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-sm font-bold text-white transition hover:bg-ink-soft"
@@ -61,9 +61,6 @@ export function Gallery() {
             View all photos
             <ArrowUpRight className="h-4 w-4" />
           </Link>
-          <p className="text-xs text-ink/45">
-            {GALLERY_IMAGES.length} photos in the full gallery
-          </p>
         </div>
       </div>
 

@@ -1,11 +1,19 @@
-import { ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, Expand } from "lucide-react";
 import { Image } from "@/components/ui/Image";
 import { Link } from "@/components/ui/Link";
 import { SocialLinks } from "@/components/ui/SocialLinks";
+import { GalleryLightbox } from "@/components/ui/GalleryLightbox";
 import { TEAM_GROUP_PHOTOS, TEAM_MEMBERS, type TeamMember } from "@/lib/data";
+
+const BTS_IMAGES = TEAM_GROUP_PHOTOS.map((src, i) => ({
+  src,
+  alt: `Dynamic Pictures crew behind the scenes ${i + 1}`,
+}));
 
 export function Team() {
   const [ceo, ...rest] = TEAM_MEMBERS;
+  const [active, setActive] = useState<string | null>(null);
 
   return (
     <section id="team" className="section-pad relative overflow-hidden bg-white">
@@ -49,51 +57,33 @@ export function Team() {
             </div>
 
             <div className="grid min-h-0 flex-1 grid-cols-2 grid-rows-3 gap-2 md:gap-3">
-              <div className="relative col-span-2 row-span-1 overflow-hidden bg-sand sm:col-span-1 sm:row-span-2">
-                <Image
-                  src={TEAM_GROUP_PHOTOS[0]}
-                  alt="Team group"
-                  fill
-                  className="object-cover transition duration-700 hover:scale-105"
-                  sizes="(max-width: 1024px) 100vw, 25vw"
-                />
-              </div>
-              <div className="relative overflow-hidden bg-sand">
-                <Image
-                  src={TEAM_GROUP_PHOTOS[1]}
-                  alt="Team moment"
-                  fill
-                  className="object-cover transition duration-700 hover:scale-105"
-                  sizes="(max-width: 1024px) 50vw, 25vw"
-                />
-              </div>
-              <div className="relative overflow-hidden bg-sand">
-                <Image
-                  src={TEAM_GROUP_PHOTOS[2]}
-                  alt="Team moment"
-                  fill
-                  className="object-cover transition duration-700 hover:scale-105"
-                  sizes="(max-width: 1024px) 50vw, 25vw"
-                />
-              </div>
-              <div className="relative overflow-hidden bg-sand">
-                <Image
-                  src={TEAM_GROUP_PHOTOS[3]}
-                  alt="Team moment"
-                  fill
-                  className="object-cover transition duration-700 hover:scale-105"
-                  sizes="(max-width: 1024px) 50vw, 25vw"
-                />
-              </div>
-              <div className="relative col-span-2 overflow-hidden bg-sand sm:col-span-1">
-                <Image
-                  src={TEAM_GROUP_PHOTOS[4]}
-                  alt="Team moment"
-                  fill
-                  className="object-cover transition duration-700 hover:scale-105"
-                  sizes="(max-width: 1024px) 100vw, 25vw"
-                />
-              </div>
+              <BtsPhoto
+                index={0}
+                onOpen={setActive}
+                className="col-span-2 row-span-1 sm:col-span-1 sm:row-span-2"
+                sizes="(max-width: 1024px) 100vw, 25vw"
+              />
+              <BtsPhoto
+                index={1}
+                onOpen={setActive}
+                sizes="(max-width: 1024px) 50vw, 25vw"
+              />
+              <BtsPhoto
+                index={2}
+                onOpen={setActive}
+                sizes="(max-width: 1024px) 50vw, 25vw"
+              />
+              <BtsPhoto
+                index={3}
+                onOpen={setActive}
+                sizes="(max-width: 1024px) 50vw, 25vw"
+              />
+              <BtsPhoto
+                index={4}
+                onOpen={setActive}
+                className="col-span-2 sm:col-span-1"
+                sizes="(max-width: 1024px) 100vw, 25vw"
+              />
             </div>
           </div>
         </div>
@@ -108,7 +98,50 @@ export function Team() {
           </Link>
         </div>
       </div>
+
+      <GalleryLightbox
+        images={BTS_IMAGES}
+        activeSrc={active}
+        onClose={() => setActive(null)}
+        onSelect={setActive}
+      />
     </section>
+  );
+}
+
+function BtsPhoto({
+  index,
+  onOpen,
+  className = "",
+  sizes,
+}: {
+  index: number;
+  onOpen: (src: string) => void;
+  className?: string;
+  sizes: string;
+}) {
+  const image = BTS_IMAGES[index];
+
+  return (
+    <button
+      type="button"
+      onClick={() => onOpen(image.src)}
+      aria-label={`View photo: ${image.alt}`}
+      className={`group relative overflow-hidden bg-sand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold ${className}`}
+    >
+      <Image
+        src={image.src}
+        alt={image.alt}
+        fill
+        className="object-cover transition duration-700 group-hover:scale-105"
+        sizes={sizes}
+      />
+      <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-ink/0 opacity-0 transition duration-300 group-hover:bg-ink/35 group-hover:opacity-100">
+        <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-ink shadow-soft">
+          <Expand className="h-4 w-4" />
+        </span>
+      </span>
+    </button>
   );
 }
 
