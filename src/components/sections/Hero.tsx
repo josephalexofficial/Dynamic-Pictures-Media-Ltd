@@ -1,45 +1,62 @@
 import { Image } from "@/components/ui/Image";
 import { useEffect, useState } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { HERO_IMAGES } from "@/lib/data";
+import { HERO_OPTIMIZED } from "@/lib/images";
 import { cn } from "@/lib/utils";
 
 export function Hero() {
   const [current, setCurrent] = useState(0);
+  // Start with slide 0 + 1 only — warm additional slides as the user advances
+  const [warm, setWarm] = useState(() => new Set([0, 1]));
 
   useEffect(() => {
     const id = setInterval(() => {
-      setCurrent((c) => (c + 1) % HERO_IMAGES.length);
+      setCurrent((c) => (c + 1) % HERO_OPTIMIZED.length);
     }, 5500);
     return () => clearInterval(id);
   }, []);
+
+  useEffect(() => {
+    const next = (current + 1) % HERO_OPTIMIZED.length;
+    setWarm((prev) => {
+      if (prev.has(current) && prev.has(next)) return prev;
+      const nextSet = new Set(prev);
+      nextSet.add(current);
+      nextSet.add(next);
+      return nextSet;
+    });
+  }, [current]);
 
   return (
     <section
       id="home"
       className="relative flex min-h-[100svh] items-end overflow-hidden bg-ink md:items-center"
     >
-      {HERO_IMAGES.map((src, index) => (
-        <div
-          key={src}
-          className={cn(
-            "absolute inset-0 transition-opacity duration-1000",
-            current === index ? "opacity-100" : "opacity-0",
-          )}
-        >
-          <Image
-            src={src}
-            alt="Dynamic Pictures Media Ltd hero"
-            fill
-            priority={index === 0}
+      {Array.from(warm).map((index) => {
+        const image = HERO_OPTIMIZED[index];
+        const isActive = index === current;
+        return (
+          <div
+            key={image.key}
             className={cn(
-              "object-cover brightness-[0.88] contrast-[1.04] transition-transform duration-[6000ms] ease-out",
-              current === index ? "scale-105" : "scale-100",
+              "absolute inset-0 transition-opacity duration-1000",
+              isActive ? "opacity-100" : "opacity-0",
             )}
-            sizes="100vw"
-          />
-        </div>
-      ))}
+          >
+            <Image
+              responsive={image}
+              alt="Dynamic Pictures Media Ltd hero"
+              fill
+              priority={index === 0}
+              sizes="100vw"
+              className={cn(
+                "object-cover brightness-[0.88] contrast-[1.04] transition-transform duration-[6000ms] ease-out",
+                isActive ? "scale-105" : "scale-100",
+              )}
+            />
+          </div>
+        );
+      })}
 
       {/* Soft left/bottom scrims only — photos stay vivid, text stays readable */}
       <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/45 to-transparent md:via-ink/35 md:to-transparent" />
@@ -81,14 +98,16 @@ export function Hero() {
           type="button"
           aria-label="Previous slide"
           onClick={() =>
-            setCurrent((c) => (c - 1 + HERO_IMAGES.length) % HERO_IMAGES.length)
+            setCurrent(
+              (c) => (c - 1 + HERO_OPTIMIZED.length) % HERO_OPTIMIZED.length,
+            )
           }
           className="hidden h-10 w-10 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur-sm transition hover:bg-black/55 md:inline-flex"
         >
           <ChevronLeft className="h-5 w-5" />
         </button>
         <div className="flex gap-2">
-          {HERO_IMAGES.map((_, index) => (
+          {HERO_OPTIMIZED.map((_, index) => (
             <button
               key={index}
               type="button"
@@ -104,7 +123,9 @@ export function Hero() {
         <button
           type="button"
           aria-label="Next slide"
-          onClick={() => setCurrent((c) => (c + 1) % HERO_IMAGES.length)}
+          onClick={() =>
+            setCurrent((c) => (c + 1) % HERO_OPTIMIZED.length)
+          }
           className="hidden h-10 w-10 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur-sm transition hover:bg-black/55 md:inline-flex"
         >
           <ChevronRight className="h-5 w-5" />

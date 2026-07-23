@@ -9,6 +9,15 @@
       content="Professional photography, videography, event coverage, and digital creative services by Dynamic Pictures Media Ltd."
     />
     <title>Dynamic Pictures Media Ltd | Creative Multimedia</title>
+    <!-- LCP: preload first hero WebP (browser picks via imagesrcset) -->
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      imagesrcset="/images/optimized/hero-1-768.webp 768w, /images/optimized/hero-1-1280.webp 1280w, /images/optimized/hero-1-1920.webp 1920w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

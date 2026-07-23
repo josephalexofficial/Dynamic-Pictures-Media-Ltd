@@ -4,17 +4,8 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS } from "@/lib/data";
+import { scrollToSection } from "@/lib/scroll";
 import { cn } from "@/lib/utils";
-
-function scrollToHash(href: string) {
-  if (!href.startsWith("#")) return false;
-  const id = href.slice(1);
-  const el = document.getElementById(id);
-  if (!el) return false;
-  el.scrollIntoView({ behavior: "smooth", block: "start" });
-  window.history.replaceState(null, "", href);
-  return true;
-}
 
 export function Navbar() {
   const navigate = useNavigate();
@@ -28,7 +19,9 @@ export function Navbar() {
       setScrolled(window.scrollY > 24);
 
       const sections = NAV_LINKS.map((l) => l.href.slice(1));
-      const position = window.scrollY + 120;
+      const header = document.querySelector("header");
+      const navHeight = header?.getBoundingClientRect().height ?? 72;
+      const position = window.scrollY + navHeight + 48;
       for (const id of sections) {
         const section = document.getElementById(id);
         if (!section) continue;
@@ -60,7 +53,7 @@ export function Navbar() {
     if (href.startsWith("#")) {
       e.preventDefault();
       if (location.pathname === "/") {
-        scrollToHash(href);
+        scrollToSection(href);
       } else {
         navigate({ pathname: "/", hash: href.slice(1) });
       }

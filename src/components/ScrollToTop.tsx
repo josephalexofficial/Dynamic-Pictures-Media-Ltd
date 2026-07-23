@@ -1,20 +1,18 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { scrollToSection } from "@/lib/scroll";
 
 export function ScrollToTop() {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
     if (hash) {
-      const id = hash.replace("#", "");
-      const el = document.getElementById(id);
-      if (el) {
-        window.setTimeout(() => {
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 60);
-        return;
-      }
+      const t = window.setTimeout(() => {
+        scrollToSection(hash, "smooth");
+      }, 60);
+      return () => window.clearTimeout(t);
     }
+
     window.scrollTo(0, 0);
   }, [pathname, hash]);
 

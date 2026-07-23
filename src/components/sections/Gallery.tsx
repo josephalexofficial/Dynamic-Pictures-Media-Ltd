@@ -1,75 +1,78 @@
-import { Image } from "@/components/ui/Image";
 import { useState } from "react";
-import { X } from "lucide-react";
-import { GALLERY_IMAGES } from "@/lib/data";
+import { ArrowUpRight } from "lucide-react";
+import { Image } from "@/components/ui/Image";
+import { Link } from "@/components/ui/Link";
+import { GalleryLightbox } from "@/components/ui/GalleryLightbox";
+import { GALLERY_IMAGES, GALLERY_PREVIEW_COUNT } from "@/lib/data";
 
 export function Gallery() {
   const [active, setActive] = useState<string | null>(null);
+  const preview = GALLERY_IMAGES.slice(0, GALLERY_PREVIEW_COUNT);
 
   return (
     <section id="gallery" className="section-pad bg-white">
       <div className="container-site">
-        <div className="mx-auto mb-14 max-w-2xl text-center">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-gold-dark">
+        <div className="mx-auto mb-12 max-w-2xl text-center md:mb-16">
+          <p className="mb-3 text-xs font-bold uppercase tracking-[0.28em] text-gold-dark">
             Portfolio
           </p>
-          <h2 className="font-display text-3xl font-bold tracking-tight text-ink md:text-5xl">
+          <h2 className="font-display text-3xl font-extrabold tracking-tight text-ink text-balance md:text-5xl">
             Our creative work
           </h2>
-          <p className="mt-4 text-ink/60">
-            A selection of recent photography and production highlights.
+          <p className="mt-4 text-base leading-relaxed text-ink/60 md:text-lg">
+            A selection of recent photography and production highlights from
+            Dynamic Pictures Media.
           </p>
+          <div className="mx-auto mt-6 h-1 w-16 rounded-full bg-gradient-to-r from-gold to-gold-dark" />
         </div>
 
-        <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
-          {GALLERY_IMAGES.map((image) => (
+        {/* 3 columns × 3 rows on desktop */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+          {preview.map((image, i) => (
             <button
               key={image.src}
               type="button"
               onClick={() => setActive(image.src)}
-              className="group relative mb-4 block w-full break-inside-avoid overflow-hidden focus:outline-none focus:ring-2 focus:ring-gold"
+              className="group relative aspect-[4/3] overflow-hidden bg-ink/5 text-left outline-none focus-visible:ring-2 focus-visible:ring-gold"
             >
               <Image
                 src={image.src}
                 alt={image.alt}
-                width={800}
-                height={1000}
-                className="h-auto w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-                sizes="(max-width: 768px) 100vw, 33vw"
+                fill
+                className="object-cover transition duration-700 ease-out group-hover:scale-[1.04]"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
-              <span className="absolute inset-0 bg-ink/0 transition group-hover:bg-ink/25" />
+              <span className="absolute inset-0 bg-ink/0 transition duration-500 group-hover:bg-ink/30" />
+              <span className="absolute bottom-0 left-0 right-0 translate-y-2 p-4 text-sm font-semibold text-white opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                View photo
+              </span>
+              <span className="absolute left-3 top-3 font-display text-[11px] font-bold tracking-[0.18em] text-white/90 opacity-0 drop-shadow transition group-hover:opacity-100">
+                {String(i + 1).padStart(2, "0")}
+              </span>
             </button>
           ))}
         </div>
+
+        <div className="mt-10 flex flex-col items-center gap-3 md:mt-12">
+          <Link
+            href="/gallery"
+            className="inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-sm font-bold text-white transition hover:bg-ink-soft"
+          >
+            View all photos
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
+          <p className="text-xs text-ink/45">
+            {GALLERY_IMAGES.length} photos in the full gallery
+          </p>
+        </div>
       </div>
 
-      {active && (
-        <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/90 p-4"
-          onClick={() => setActive(null)}
-        >
-          <button
-            type="button"
-            aria-label="Close"
-            className="absolute right-5 top-5 text-white"
-            onClick={() => setActive(null)}
-          >
-            <X className="h-7 w-7" />
-          </button>
-          <div
-            className="relative max-h-[85vh] max-w-5xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Image
-              src={active}
-              alt="Gallery preview"
-              width={1400}
-              height={1000}
-              className="max-h-[85vh] w-auto object-contain"
-            />
-          </div>
-        </div>
-      )}
+      <GalleryLightbox
+        images={preview}
+        activeSrc={active}
+        onClose={() => setActive(null)}
+        onSelect={setActive}
+      />
     </section>
   );
 }

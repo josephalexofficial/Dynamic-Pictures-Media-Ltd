@@ -42,7 +42,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5.5rem;
+  scroll-padding-top: 4.75rem;
 }
 
 body {
@@ -62,28 +62,28 @@ body {
 }
 
 @utility section-pad {
-  padding-block: 4rem;
+  padding-block: 3.75rem;
 }
 
 @utility container-site {
   margin-inline: auto;
   width: 100%;
   max-width: 80rem;
-  padding-inline: 1.25rem;
+  padding-inline: 1.5rem;
 }
 
 @media (min-width: 640px) {
   .container-site {
-    padding-inline: 1.5rem;
+    padding-inline: 1.75rem;
   }
 }
 
 @media (min-width: 1024px) {
   .container-site {
-    padding-inline: 2rem;
+    padding-inline: 2.25rem;
   }
 
   .section-pad {
-    padding-block: 6rem;
+    padding-block: 5rem;
   }
 }

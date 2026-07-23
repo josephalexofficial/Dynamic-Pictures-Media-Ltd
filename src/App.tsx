@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/Footer";
 import { HomePage } from "@/pages/HomePage";
 import { TeamPage } from "@/pages/TeamPage";
 import { EventPage } from "@/pages/EventPage";
+import { GalleryPage } from "@/pages/GalleryPage";
 import { ScrollToTop } from "@/components/ScrollToTop";
 
 export function App() {
@@ -15,6 +16,7 @@ export function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/team" element={<TeamPage />} />
+          <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/events/:slug" element={<EventPage />} />
         </Routes>
       </main>

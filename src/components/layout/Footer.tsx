@@ -1,5 +1,8 @@
+import { type ReactNode } from "react";
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { Image } from "@/components/ui/Image";
 import { Link } from "@/components/ui/Link";
+import { BrandSocials } from "@/components/ui/BrandSocials";
 import {
   CONTACT_ADDRESS,
   CONTACT_EMAIL,
@@ -13,62 +16,55 @@ export function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-ink text-white">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(232,185,35,0.18),transparent_50%)]" />
-      <div className="container-site relative pt-16 pb-8">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-          <div className="space-y-5 lg:col-span-1">
+      <div className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-gold/15 blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 bottom-0 h-64 w-64 rounded-full bg-gold/10 blur-3xl" />
+
+      <div className="container-site relative pt-16 pb-8 md:pt-20">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
+          {/* Brand */}
+          <div className="lg:col-span-4">
             <Link href="/#home" className="inline-flex items-center gap-3">
-              <span className="relative h-12 w-12 overflow-hidden rounded-full ring-2 ring-gold/50">
+              <span className="relative h-14 w-14 overflow-hidden rounded-full ring-2 ring-gold/55 ring-offset-2 ring-offset-ink">
                 <Image
                   src="/images/brand/logo.jpg"
                   alt="Dynamic Pictures Media Ltd"
                   fill
                   className="object-cover"
-                  sizes="48px"
+                  sizes="56px"
                 />
               </span>
               <span>
-                <span className="block font-display text-lg font-bold leading-tight">
+                <span className="block font-display text-xl font-extrabold leading-tight tracking-tight">
                   Dynamic Pictures
                 </span>
-                <span className="text-xs uppercase tracking-[0.16em] text-white/50">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold">
                   Media Ltd
                 </span>
               </span>
             </Link>
-            <p className="max-w-xs text-sm leading-relaxed text-white/65">
+
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/60">
               Transforming visions into captivating visual stories through
               photography, videography, and creative digital solutions.
             </p>
-            <div className="flex gap-3">
-              <Social
-                href="https://www.facebook.com/Angolongo"
-                label="Facebook"
-              >
-                <path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-3h2.5V9.5c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.3c-1.2 0-1.6.8-1.6 1.5V12H17l-.4 3h-2.4v7A10 10 0 0 0 22 12z" />
-              </Social>
-              <Social
-                href="https://www.youtube.com/@dynamicmedialtd"
-                label="YouTube"
-              >
-                <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.8 15.5v-7l6.2 3.5-6.2 3.5z" />
-              </Social>
-              <Social href={`https://wa.me/${WHATSAPP_NUMBER}`} label="WhatsApp">
-                <path d="M20.5 3.5A10 10 0 0 0 3.3 17.8L2 22l4.3-1.1A10 10 0 1 0 20.5 3.5zm-8.5 16a8.3 8.3 0 0 1-4.2-1.2l-.3-.2-2.5.7.7-2.4-.2-.3a8.3 8.3 0 1 1 6.5 3.4zm4.6-6.2c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.7.9-.3.2-.5.1a6.8 6.8 0 0 1-2-1.2 7.5 7.5 0 0 1-1.4-1.7c-.1-.3 0-.4.1-.5l.4-.4.2-.3a.4.4 0 0 0 0-.4c0-.1-.5-1.3-.7-1.8s-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 2.9 2.9 0 0 0-.9 2.2 5 5 0 0 0 1.1 2.7 11.5 11.5 0 0 0 4.4 3.9c.6.3 1 .4 1.4.5a3.4 3.4 0 0 0 1.6.1 2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .1-1.2c-.1-.1-.2-.1-.4-.2z" />
-              </Social>
+
+            <div className="mt-6">
+              <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white/40">
+                Follow us
+              </p>
+              <BrandSocials size="md" />
             </div>
           </div>
 
-          <div>
-            <h3 className="mb-4 font-display text-sm font-bold uppercase tracking-[0.16em] text-gold">
-              Explore
-            </h3>
-            <ul className="space-y-2.5">
+          {/* Explore */}
+          <div className="lg:col-span-3">
+            <FooterHeading>Explore</FooterHeading>
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-2.5 sm:grid-cols-1">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={`/${link.href}`}
-                    className="text-sm text-white/65 transition hover:text-white"
+                    className="text-sm text-white/60 transition hover:text-gold"
                   >
                     {link.label}
                   </Link>
@@ -77,76 +73,78 @@ export function Footer() {
             </ul>
           </div>
 
-          <div>
-            <h3 className="mb-4 font-display text-sm font-bold uppercase tracking-[0.16em] text-gold">
-              Contact
-            </h3>
-            <ul className="space-y-3 text-sm text-white/65">
-              <li>{CONTACT_ADDRESS}</li>
-              <li>
+          {/* Contact */}
+          <div className="lg:col-span-3">
+            <FooterHeading>Contact</FooterHeading>
+            <ul className="space-y-4">
+              <FooterMeta icon={MapPin}>{CONTACT_ADDRESS}</FooterMeta>
+              <FooterMeta icon={Phone}>
                 <a
                   href={`tel:+${WHATSAPP_NUMBER}`}
-                  className="hover:text-white"
+                  className="transition hover:text-gold"
                 >
                   {WHATSAPP_DISPLAY}
                 </a>
-              </li>
-              <li>
+              </FooterMeta>
+              <FooterMeta icon={Mail}>
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
-                  className="break-all hover:text-white"
+                  className="break-all transition hover:text-gold"
                 >
                   {CONTACT_EMAIL}
                 </a>
-              </li>
+              </FooterMeta>
             </ul>
           </div>
 
-          <div>
-            <h3 className="mb-4 font-display text-sm font-bold uppercase tracking-[0.16em] text-gold">
-              Hours
-            </h3>
-            <ul className="space-y-2 text-sm text-white/65">
-              <li className="flex justify-between gap-4">
-                <span>Mon – Sun</span>
-                <span>8:00 AM – 6:00 PM</span>
-              </li>
-              <li className="pt-3 text-white/45">
+          {/* Hours */}
+          <div className="lg:col-span-2">
+            <FooterHeading>Hours</FooterHeading>
+            <div className="space-y-3 text-sm text-white/60">
+              <div>
+                <p className="font-semibold text-white/85">Mon – Sun</p>
+                <p className="mt-1">8:00 AM – 6:00 PM</p>
+              </div>
+              <p className="border-t border-white/10 pt-3 text-xs leading-relaxed text-white/40">
                 Available for booked events outside regular hours.
-              </li>
-            </ul>
+              </p>
+            </div>
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-center text-xs text-white/40 sm:flex-row sm:text-left">
+        <div className="mt-14 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-center text-xs text-white/40 sm:flex-row sm:text-left">
           <p>© {year} Dynamic Pictures Media Ltd. All rights reserved.</p>
-          <p>Kitengela · Kajiado · Kenya</p>
+          <p className="tracking-wide">Kitengela · Kajiado · Kenya</p>
         </div>
       </div>
     </footer>
   );
 }
 
-function Social({
-  href,
-  label,
+function FooterHeading({ children }: { children: ReactNode }) {
+  return (
+    <div className="mb-5">
+      <h3 className="font-display text-sm font-bold uppercase tracking-[0.18em] text-gold">
+        {children}
+      </h3>
+      <div className="mt-2.5 h-0.5 w-8 rounded-full bg-gold/70" />
+    </div>
+  );
+}
+
+function FooterMeta({
+  icon: Icon,
   children,
 }: {
-  href: string;
-  label: string;
-  children: React.ReactNode;
+  icon: React.ComponentType<{ className?: string }>;
+  children: ReactNode;
 }) {
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={label}
-      className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-white/70 transition hover:bg-gold hover:text-ink"
-    >
-      <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-        {children}
-      </svg>
-    </a>
+    <li className="flex gap-3 text-sm leading-relaxed text-white/60">
+      <span className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/5 text-gold">
+        <Icon className="h-3.5 w-3.5" />
+      </span>
+      <span className="min-w-0 pt-1">{children}</span>
+    </li>
   );
 }

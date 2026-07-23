@@ -12,7 +12,29 @@ export const NAV_LINKS = [
 export const WHATSAPP_NUMBER = "254798658801";
 export const WHATSAPP_DISPLAY = "+254 798 658 801";
 export const CONTACT_EMAIL = "mulusanorris123@gmail.com";
-export const CONTACT_ADDRESS = "Kitengela Town, Kajiado County — Next to Kitengela Shopping Center";
+export const CONTACT_ADDRESS =
+  "Kitengela Town, Kajiado County — Next to Kitengela Shopping Center";
+
+export const COMPANY_SOCIALS = [
+  {
+    id: "facebook",
+    label: "Facebook",
+    href: "https://www.facebook.com/Angolongo",
+    color: "#1877F2",
+  },
+  {
+    id: "youtube",
+    label: "YouTube",
+    href: "https://www.youtube.com/@dynamicmedialtd",
+    color: "#FF0000",
+  },
+  {
+    id: "whatsapp",
+    label: "WhatsApp",
+    href: `https://wa.me/${WHATSAPP_NUMBER}`,
+    color: "#25D366",
+  },
+] as const;
 
 export const SERVICES = [
   {
@@ -20,8 +42,8 @@ export const SERVICES = [
     title: "Professional Photography",
     description:
       "Capture lasting moments with artistic precision — portraits, products, and brand imagery crafted for impact.",
-    image: "/images/services/photography-hq.webp",
-    fallback: "/images/services/photography.jpg",
+    image: "/images/services/photography.jpg",
+    accent: "01",
   },
   {
     id: "videography",
@@ -29,15 +51,15 @@ export const SERVICES = [
     description:
       "Cinematic video production that turns your story into motion — from concept to final cut.",
     image: "/images/services/videography.jpg",
-    fallback: "/images/services/videography.jpg",
+    accent: "02",
   },
   {
     id: "event-coverage",
     title: "Event Coverage",
     description:
       "Full-day documentation for graduations, corporate events, and celebrations — every key moment preserved.",
-    image: "/images/services/event-coverage-hq.webp",
-    fallback: "/images/services/event-coverage.jpg",
+    image: "/images/services/event-coverage.jpg",
+    accent: "03",
   },
   {
     id: "graphic-design",
@@ -45,7 +67,7 @@ export const SERVICES = [
     description:
       "Visual identity, posters, and brand assets that communicate clearly and look unforgettable.",
     image: "/images/services/graphic-design.jpg",
-    fallback: "/images/services/graphic-design.webp",
+    accent: "04",
   },
   {
     id: "web-development",
@@ -53,40 +75,53 @@ export const SERVICES = [
     description:
       "Modern, fast websites that showcase your brand and convert visitors into clients.",
     image: "/images/services/web-development.jpg",
-    fallback: "/images/services/web-development.jpg",
+    accent: "05",
   },
   {
     id: "video-editing",
     title: "Video Editing",
     description:
       "Polished post-production — color, sound, pacing, and storytelling that elevates raw footage.",
-    image: "/images/services/video-editing-hq.webp",
-    fallback: "/images/services/video-editing.jpg",
+    image: "/images/services/video-editing.jpg",
+    accent: "06",
   },
 ] as const;
 
-export const GALLERY_IMAGES = [
-  { src: "/images/gallery/image-1.jpg", alt: "Portfolio image 1" },
-  { src: "/images/gallery/image-2.jpg", alt: "Portfolio image 2" },
-  { src: "/images/gallery/image-3.jpg", alt: "Portfolio image 3" },
-  { src: "/images/gallery/image-4.jpg", alt: "Portfolio image 4" },
-  { src: "/images/gallery/image-5.jpg", alt: "Portfolio image 5" },
-  { src: "/images/gallery/image-6.jpg", alt: "Portfolio image 6" },
-  { src: "/images/gallery/second.jpg", alt: "Featured shoot" },
-  { src: "/images/gallery/third.jpg", alt: "Creative production" },
-  { src: "/images/gallery/image-10.jpg", alt: "Portfolio image 10" },
-] as const;
+export type GalleryImage = {
+  src: string;
+  alt: string;
+};
 
-export const HERO_IMAGES = [
-  "/images/hero/hero-1.jpg",
-  "/images/hero/hero-2.jpg",
-  "/images/hero/hero-3.jpg",
-] as const;
+/** Portfolio / gallery images only (excludes team & testimonials) */
+export const GALLERY_IMAGES: GalleryImage[] = [
+  { src: "/images/gallery/image-1.jpg", alt: "Portfolio photograph 1" },
+  { src: "/images/gallery/image-2.jpg", alt: "Portfolio photograph 2" },
+  { src: "/images/gallery/image-3.jpg", alt: "Portfolio photograph 3" },
+  { src: "/images/gallery/image-4.jpg", alt: "Portfolio photograph 4" },
+  { src: "/images/gallery/image-5.jpg", alt: "Portfolio photograph 5" },
+  { src: "/images/gallery/image-6.jpg", alt: "Portfolio photograph 6" },
+  { src: "/images/gallery/image-7.jpg", alt: "Portfolio photograph 7" },
+  { src: "/images/gallery/image-8.jpg", alt: "Portfolio photograph 8" },
+  { src: "/images/gallery/image-9.jpg", alt: "Portfolio photograph 9" },
+  { src: "/images/gallery/image-10.jpg", alt: "Portfolio photograph 10" },
+  { src: "/images/gallery/image-11.jpg", alt: "Portfolio photograph 11" },
+  { src: "/images/gallery/image-12.jpg", alt: "Portfolio photograph 12" },
+  { src: "/images/gallery/image-13.jpg", alt: "Portfolio photograph 13" },
+  { src: "/images/gallery/first.jpg", alt: "Featured photography work" },
+  { src: "/images/gallery/second.jpg", alt: "Creative production still" },
+  { src: "/images/gallery/third.jpg", alt: "On-location coverage" },
+  { src: "/images/optimized/gallery-14-1400.webp", alt: "Portfolio photograph 14" },
+  { src: "/images/optimized/gallery-featured-1400.webp", alt: "Signature portfolio frame" },
+];
+
+/** Homepage preview — first 9 images = 3 rows × 3 columns */
+export const GALLERY_PREVIEW_COUNT = 9;
 
 export type TeamSocials = {
   x?: string;
   github?: string;
   linkedin?: string;
+  email?: string;
 };
 
 export type TeamMember = {
@@ -105,6 +140,11 @@ export const TEAM_MEMBERS: TeamMember[] = [
     role: "Founder & CEO",
     bio: "Visionary leader with a passion for creative excellence and building stories that last.",
     image: "/images/team/portraits/mulusa-norris.png",
+    socials: {
+      x: "#",
+      linkedin: "#",
+      email: "#",
+    },
   },
   {
     id: "steve-kijedi",
@@ -112,6 +152,11 @@ export const TEAM_MEMBERS: TeamMember[] = [
     role: "Operations Manager",
     bio: "Ensuring smooth productions and exceptional client experiences from brief to delivery.",
     image: "/images/team/portraits/steve-kijedi.png",
+    socials: {
+      x: "#",
+      linkedin: "#",
+      email: "#",
+    },
   },
   {
     id: "alex-joseph",
