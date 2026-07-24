@@ -39,7 +39,7 @@ export const COMPANY_SOCIALS = [
 export const SERVICES = [
   {
     id: "photography",
-    title: "Professional Photography",
+    title: "Event Photography",
     description:
       "Capture lasting moments with artistic precision — portraits, products, and brand imagery crafted for impact.",
     image: "/images/services/photography.jpg",
@@ -55,7 +55,7 @@ export const SERVICES = [
   },
   {
     id: "event-coverage",
-    title: "Event Coverage",
+    title: "Event Livestreaming",
     description:
       "Full-day documentation for graduations, corporate events, and celebrations — every key moment preserved.",
     image: "/images/services/event-coverage.jpg",
